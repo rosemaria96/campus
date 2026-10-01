@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>Staff Request</title>
+    {% load static %}
+    <link rel ="stylesheet" href="{% static 'style.css' %}">
+<h2> Staff Request</h2>
+
+<table>
+    <tr>
+        <th>User</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Location</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    
+    {% for r in requests %}
+    <tr>
+        <td>{{ r.user.username }}</td>
+        <td>{{ r.title }}</td>
+        <td>{{ r.category }}</td>
+        <td>{{ r.location }}</td>
+        <td>{{ r.priority }}</td>
+        <td>{{ r.status }}</td>
+        <td>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ r.id }}">
+                <select name="status">
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+                <button type="submit">Update</button>
+            </form>
+        </td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+
+{% endblock %}

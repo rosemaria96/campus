@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<title>Request</title>
+    {% load static %}
+    <link rel ="stylesheet" href="{% static 'style.css' %}">
+<h2> Submit Maintennace Request</h2>
+
+<form method ="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type = "submit">Submit</button>
+</form>
+
+{% endblock %}

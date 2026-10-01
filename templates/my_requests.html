@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>Requests</title>
+    {% load static %}
+    <link rel ="stylesheet" href="{% static 'style.css' %}">
+<h2> My Request</h2>
+
+<form method ="GET">
+   <select name="category">
+    <option value="">All Categories</option>
+    <option value="Electrical">Electrical</option>
+    <option value="Plumbing">Plumbing</option>
+    <option value="Cleaning">Cleaning</option>
+    <option value="Furniture">Furniture</option>
+   </select>
+
+   <select name="priority">
+    <option value="">All Prioitires</option>
+    <option value="Low">Low</option>
+    <option value="Medium">Medium</option>
+    <option value="High">High</option>
+   </select>
+
+   <select name="status">
+    <option value="">All Status/option>
+    <option value="Pending">Pending</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Completed">Completed</option>
+   </select>
+
+   <button type="submit">Filter</button>
+</form>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Location</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    
+    {% for r in requests %}
+    <tr>
+        <td>{{ r.title }}</td>
+        <td>{{ r.category }}</td>
+        <td>{{ r.location }}</td>
+        <td>{{ r.priority }}</td>
+        <td>{{ r.status }}</td>
+        <td>
+            <a href ="{% url 'edit_request' r.id %}">Edit</a>
+            <form method="POST">
+                action="{% url 'delete_request' r.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="6">No requests found</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

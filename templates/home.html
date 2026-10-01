@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<title>Home</title>
+    {% load static %}
+    <link rel ="stylesheet" href="{% static 'style.css' %}">
+<h2> Welcome To Campus Mainten</h2>
+<p >Report and track issues</p>
+<a href = "{% url 'submit_request' %}">Submit Request</a>
+<br><br>
+<a href="{% url 'my_requests' %}">View my requests</a>
+
+{% endblock %}
+
+
